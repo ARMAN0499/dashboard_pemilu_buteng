@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard WebGIS Pilkada BUTENG</title>
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Link ke file CSS -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-gray-100 font-sans">
+         <!-- Navbar -->
+         <nav class="navbar">
+            <div class="logo">Dashboard Perolehan Suara Pilkada Buteng 2024</div>
+            <div class="menu-toggle" onclick="toggleMenu()">&#9776;</div>
+            <ul class="menu">
+                <li><a href="https:/Arman0499.github.io/dashboard_pemilu_buteng/">Dashboard</a></li>
+                <li><a href=" https://arman0499.github.io/Hasil-Pilkada-BUTENG/">Lihat Peta Secara Penuh</a></li>
+                <li><a href="https://instagram.com/ngguhbd">Contact</a></li>
+            </ul>
+            </nav>
+            <!-- Main Content -->
+    <div class="container mx-auto mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Peta -->
+        <div class="bg-white p-4 shadow rounded">
+          <h2 class="text-lg font-semibold mb-4">Peta Interaktif</h2>
+          <iframe src="https://arman0499.github.io/Hasil-Pilkada-BUTENG/" class="w-full h-80 border rounded" allowfullscreen></iframe>
+        </div>
+    <!-- Diagram -->
+    <div class="bg-white p-4 shadow rounded">
+        <h2 class="text-lg font-semibold mb-4">Diagram Infografis</h2>
+        <!-- <canvas id="chart" class="w-full h-80"></canvas> -->
+        <!-- <h2 style="text-align: center;">Total Suara Partai per Kabupaten/Kota</h2> -->
+        <canvas id="stackedBarChart" width="800" height="400"></canvas>
+    </div>
+
+    <script>
+        // Labels untuk sumbu X (Kabupaten/Kota)
+        const labels = ["GU", "LAKUDO", "MAWASANGKA", "MAWASANGKA TENGAH", "MAWASANGKA TIMUR", "SANGIA WAMBULU", "TALAGA RAYA"];
+    
+        // Data suara partai per kabupaten/kota
+        const dataPartai = {
+            "PASLON 01": [4631,5879,8810,3063,1978,1057,2428],
+            "PASLON 02": [5194, 6413,6520,2648,997,2008,3358],
+
+        };
+    
+        // Warna khusus untuk setiap partai
+        const partaiColors = {
+            "GU": "darkgreen",
+            "LAKUDO": "darkorange",
+           
+        };
+    
+        // Menyiapkan dataset
+        const datasets = Object.keys(dataPartai).map(partai => ({
+            label: partai,
+            data: dataPartai[partai],
+            backgroundColor: partaiColors[partai],
+            borderColor: partaiColors[partai],
+            borderWidth: 1
+        }));
+    
+        // Membuat grafik
+        const ctx = document.getElementById('stackedBarChart').getContext('2d');
+        const stackedBarChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: datasets
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top'
+                    },
+                },
+                scales: {
+                    x: {
+                        stacked: true // Mengaktifkan stack pada sumbu X
+                    },
+                    y: {
+                        stacked: true, // Mengaktifkan stack pada sumbu Y
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+  </div>
+<!-- Tabel -->
+<div class="container mx-auto mt-6 bg-white p-4 shadow rounded">
+    <h2 class="text-lg font-semibold mb-4">Data Tabel</h2>
+    <div class="overflow-y-auto h-80 border rounded"> <!-- Kontainer dengan scroll -->
+      <table class="table-auto w-full border">
+        <thead class="bg-white-200">
+        <tr>
+            <td class="px-4 py-2 border border-gray-300">Kecamatan</td>
+            <td class="px-4 py-2 border border-gray-300">Paslon 01</td>
+            <td class="px-4 py-2 border border-gray-300">Paslon 02</td>
+           
+        </tr>
+        <tr>
+            <td class="px-4 py-2 border border-gray-300">GU</td>
+            <td class="px-4 py-2 border border-gray-300">4631</td>
+            <td class="px-4 py-2 border border-gray-300">5194</td>
+        </tr>
+        <tr>
+            <td class="px-4 py-2 border border-gray-300">LAKUDO</td>
+            <td class="px-4 py-2 border border-gray-300">5879</td>
+            <td class="px-4 py-2 border border-gray-300">6413</td>
+        </tr>
+        <tr>
+            <td class="px-4 py-2 border border-gray-300">MAWASANGKA</td>
+            <td class="px-4 py-2 border border-gray-300">8810</td>
+            <td class="px-4 py-2 border border-gray-300">6520</td>
+        </tr>
+        <tr>
+            <td class="px-4 py-2 border border-gray-300">MAWASANGKA TENGAH</td>
+            <td class="px-4 py-2 border border-gray-300">3063</td>
+            <td class="px-4 py-2 border border-gray-300">2648</td>
+        </tr>
+        <tr>
+            <td class="px-4 py-2 border border-gray-300">MAWASANGKA TIMUR</td>
+            <td class="px-4 py-2 border border-gray-300">1978</td>
+            <td class="px-4 py-2 border border-gray-300">997</td>
+        </tr>
+        <tr>
+            <td class="px-4 py-2 border border-gray-300">SANGIA WAMBULU</td>
+            <td class="px-4 py-2 border border-gray-300">1057</td>
+            <td class="px-4 py-2 border border-gray-300">2008</td>
+        </tr>
+        <tr>
+            <td class="px-4 py-2 border border-gray-300">TALAGA RAYA</td>
+            <td class="px-4 py-2 border border-gray-300">2428</td>
+            <td class="px-4 py-2 border border-gray-300">3358</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
+</body>
+</html>
